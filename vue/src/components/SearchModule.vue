@@ -4,12 +4,12 @@
     <div className="flex flex-row p-4">
       <input 
         className="w-2/3 mr-2 text-white p-2"
-        @input="handleSearchTextChange(($event.target as HTMLInputElement).value)"
+        @input="handleSearchTextChangeAction(($event.target as HTMLInputElement).value)"
         :value="searchText"
-        @keyup.enter="handleSearchClick()"
+        @keyup.enter="handleSearchClickAction()"
       />
       <button
-        @click="handleSearchClick()"
+        @click="handleSearchClickAction()"
       >
         Search
       </button>
@@ -19,7 +19,7 @@
       <div className='flex flex-row justify-center items-center p-4 text-2xl'>
         <div className='pr-4 text-lg'>Searched Places</div>
         <button
-          @click="handleDeleteSearchHistory()"
+          @click="handleDeleteSearchHistoryAction()"
           className="text-lg"
         >
           Delete
@@ -32,7 +32,7 @@
         >
           <input 
             type="checkbox"
-            @click="handleDeleteFlagClick(($event.target as HTMLInputElement).checked, value.id)"
+            @click="handleDeleteFlagClickAction(($event.target as HTMLInputElement).checked, value.id)"
             :checked="value.deleteFlag"
             className="w-14 ml-12"
           />
@@ -44,17 +44,17 @@
     </div>
     <!-- Pagination -->
     <div className="flex flex-row justify-center pb-4">
-      <button className="w-12 h-12 border" @click="handlePageChange('-')">
+      <button className="w-12 h-12 border" @click="handlePageChangeAction('-')">
         {{ "<" }}
       </button>
       <button v-for="(value, key) in paginationState"
         className="w-12 h-12 border"
-        @click="handlePageChange(value)"
+        @click="handlePageChangeAction(value)"
         :key="key"
       >
         {{ value }}
       </button>
-      <button className="w-12 h-12 border" @click="handlePageChange('+')">
+      <button className="w-12 h-12 border" @click="handlePageChangeAction('+')">
         {{ ">" }}
       </button>
     </div>
@@ -100,19 +100,19 @@
       },
     },
     methods: {
-      handleSearchTextChange(value: string) {
+      handleSearchTextChangeAction(value: string) {
         this.handleSearchText(value);
       },
-      handleSearchClick() {
+      handleSearchClickAction() {
         this.handleSearchClick();
       },
-      handlePageChange(value: string | number) {
+      handlePageChangeAction(value: string | number) {
         this.handlePageChange(value);
       },
-      handleDeleteFlagClick(state: boolean, id: number) {
+      handleDeleteFlagClickAction(state: boolean, id: number) {
         this.handleDeleteFlagClick(state, id);
       },
-      handleDeleteSearchHistory() {
+      handleDeleteSearchHistoryAction() {
         this.handleDeleteSearchHistory();
       }
     }
