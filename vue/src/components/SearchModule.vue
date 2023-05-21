@@ -4,7 +4,7 @@
     <div className="flex flex-row p-4">
       <input 
         className="w-2/3 mr-2 text-white p-2"
-        @input="handleSearchTextChange($event.target.value)"
+        @input="handleSearchTextChange(($event.target as HTMLInputElement).value)"
         :value="searchText"
         @keyup.enter="handleSearchClick()"
       />
@@ -32,7 +32,7 @@
         >
           <input 
             type="checkbox"
-            @click="handleDeleteFlagClick($event.target.checked, value.id)"
+            @click="handleDeleteFlagClick(($event.target as HTMLInputElement).checked, value.id)"
             :checked="value.deleteFlag"
             className="w-14 ml-12"
           />
@@ -61,34 +61,60 @@
   </div>
 </template>
 
-<script>
-  export default {
+<script lang="ts">
+  import { defineComponent } from 'vue';
+
+  export default defineComponent({
     props: {
-      handleSearchText: Function,
-      searchText: String,
-      handleSearchClick: Function,
-      searchHistoryDisplayData: Object,
-      handlePageChange: Function,
-      paginationState: Object,
-      handleDeleteFlagClick: Function,
-      handleDeleteSearchHistory: Function,
+      handleSearchText: {
+        type: Function,
+        required: true,
+      },
+      searchText: {
+        type: String,
+        required: true,
+      },
+      handleSearchClick: {
+        type: Function,
+        required: true,
+      },
+      searchHistoryDisplayData: {
+        type: Object,
+        required: true,
+      },
+      handlePageChange: {
+        type: Function,
+        required: true,
+      },
+      paginationState: {
+        type: Object,
+        required: true,
+      },
+      handleDeleteFlagClick: {
+        type: Function,
+        required: true,
+      },
+      handleDeleteSearchHistory: {
+        type: Function,
+        required: true,
+      },
     },
     methods: {
-      handleSearchTextChange(value) {
+      handleSearchTextChange(value: string) {
         this.handleSearchText(value);
       },
       handleSearchClick() {
         this.handleSearchClick();
       },
-      handlePageChange(value) {
+      handlePageChange(value: string | number) {
         this.handlePageChange(value);
       },
-      handleDeleteFlagClick(state, id) {
+      handleDeleteFlagClick(state: boolean, id: number) {
         this.handleDeleteFlagClick(state, id);
       },
       handleDeleteSearchHistory() {
         this.handleDeleteSearchHistory();
       }
     }
-  }
+  })
 </script>

@@ -1,13 +1,17 @@
-<script>
-import Header from './components/Header.vue';
-import SearchModule from './components/SearchModule.vue';
+<script lang="ts">
+import { defineComponent } from 'vue';
+// @ts-ignore
 import ts from '@mapbox/timespace';
+// @ts-ignore
+import { GoogleMap, Marker } from 'vue3-google-map';
 import { v4 as uuidv4 } from 'uuid';
 
-import { GoogleMap, Marker } from 'vue3-google-map';
+import Header from './components/Header.vue';
+import SearchModule from './components/SearchModule.vue';
 import { WEATHER_K, GOOGLE_MAPS_API, NUM_RESULTS_PER_PAGE } from './utils/constant';
+import { geoLocation, searchHistoryObject } from './utils/interfaces';
 
-export default {
+export default defineComponent({
   components: {
     Header,
     SearchModule,
@@ -17,19 +21,20 @@ export default {
 
   data() {
     return {
-      geoLocation: "",
-      localTime: "",
-      timeZone: "",
-      searchText: "",
-      searchHistory: [],
-      updateFlag: false,
+      GOOGLEMAPSAPIKEY: GOOGLE_MAPS_API as string,
+      geoLocation: {} as geoLocation,
+      localTime: "" as string,
+      timeZone: "" as string,
+      searchText: "" as string,
+      searchHistory: [] as searchHistoryObject[],
+      updateFlag: false as boolean,
 
-      numberOfPages: 1,
-      currPage: 1,
-      searchHistoryDisplayData: [],
-      paginationState: [1],
+      numberOfPages: 1 as number,
+      currPage: 1 as number,
+      searchHistoryDisplayData: [] as searchHistoryObject[],
+      paginationState: [1] as (number | string)[],
 
-      loadingMap: true,
+      loadingMap: true as boolean,
     }
   },
 
@@ -40,19 +45,19 @@ export default {
         timeout: 5000,
         maximumAge: 0
       }
-      const success = (position) => {
+      const success = (position: GeolocationPosition) => {
         this.geoLocation = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         }
       }
-      const error = (err) => {
+      const error = (err: GeolocationPositionError) => {
         console.log(`ERROR: ${err.code}`);
       }
       navigator.geolocation.getCurrentPosition(success, error, options);
     },
 
-    handleSearchText(value) {
+    handleSearchText(value: string) {
       this.searchText = value
     },
 
@@ -104,12 +109,12 @@ export default {
       this.searchText = ""
     },
 
-    handlePageChange(value) {
+    handlePageChange(value: string | number) {
       if (value === "...") {
         return;
       }
-      let indexOfFirstPost;
-      let indexOfLastPost;
+      let indexOfFirstPost: number;
+      let indexOfLastPost: number;
       if (value === "+") {
         if ((this.currPage + 1) > this.numberOfPages) {
           return;
@@ -125,9 +130,9 @@ export default {
         indexOfFirstPost = indexOfLastPost - NUM_RESULTS_PER_PAGE;
         this.currPage = this.currPage - 1
       } else {
-        indexOfLastPost = value * NUM_RESULTS_PER_PAGE; 
+        indexOfLastPost = Number(value) * NUM_RESULTS_PER_PAGE; 
         indexOfFirstPost = indexOfLastPost - NUM_RESULTS_PER_PAGE;
-        this.currPage = value
+        this.currPage = Number(value)
       }
 
       const tempSearchHistory = [...this.searchHistory];
@@ -135,7 +140,7 @@ export default {
       this.searchHistoryDisplayData = filteredSearchHistory;
     },
 
-    handleDeleteFlagClick(checkboxState, id) {
+    handleDeleteFlagClick(checkboxState: boolean, id: string) {
       this.updateFlag = true;
       const itemIndex = this.searchHistory.findIndex(searchItem => searchItem.id === id)
       const tempSearchHistory = [...this.searchHistory];
@@ -217,12 +222,12 @@ export default {
     },
 
     geoLocation() {
-      if (this.geoLocation !== "") {
+      if (Object.keys(this.geoLocation).length !== 0) {
         this.loadingMap = false;
       }
     },  
   }
-}
+})
 </script>
 
 <template>
@@ -245,7 +250,7 @@ export default {
       />
       <div v-if="loadingMap === false" className="h-full w-full">
         <GoogleMap 
-          :api-key="GOOGLE_MAPS_API"
+          :api-key="GOOGLEMAPSAPIKEY"
           :center="geoLocation"
           :zoom="11"
           style="width: 100%; height: 100%"
