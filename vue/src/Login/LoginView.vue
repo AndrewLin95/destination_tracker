@@ -16,7 +16,7 @@
 
 <template>
   <div className="w-screen h-screen overflow-hidden flex flex-col justify-center items-center">
-    <div className="h-3/5 w-1/5 flex flex-col py-12 px-8 border border-blue-200">
+    <div className="h-5/12 w-1/5 flex flex-col py-12 px-8 border border-blue-200">
       <div v-if="!signUpToggle" className="flex justify-center text-5xl"> Welcome </div>
       <div v-else className="flex justify-center text-5xl"> Sign Up </div>
       <div className="flex w-full h-auto justify-center my-4">
@@ -60,6 +60,9 @@
           placeholder="Password"
           type="password"
         />
+        <button className="mt-2 w-full">
+          Sign Up
+        </button>
 
         <div className="flex justify-center pt-3">
           Already have an account? &nbsp;
