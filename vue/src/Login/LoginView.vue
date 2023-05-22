@@ -1,18 +1,75 @@
 <script lang="ts">
-
   export default {
     name: "LoginView",
-    data ()
- {
-  return {
+    data () {
+      return {
+        signUpToggle: false as boolean,
+      }
+    },
+    methods: {
+      handleSignUpToggle(boolState: boolean) {
+        this.signUpToggle = boolState;
+      }
+    }
   }
- }  
-}
-
 </script>
 
 <template>
-  <div>
-    Login Page asdfa
+  <div className="w-screen h-screen overflow-hidden flex flex-col justify-center items-center">
+    <div className="h-3/5 w-1/5 flex flex-col py-12 px-8 border border-blue-200">
+      <div v-if="!signUpToggle" className="flex justify-center text-5xl"> Welcome </div>
+      <div v-else className="flex justify-center text-5xl"> Sign Up </div>
+      <div className="flex w-full h-auto justify-center my-4">
+        <img alt="Destination Tracker Logo" src="../assets/destination.png" className="h-32 w-32 my-12">
+      </div>
+
+      <div v-if="!signUpToggle" className="w-full">
+        <input className="w-full my-2 p-2"
+          placeholder="Email"
+          type="email"
+        />
+        <input className="w-full my-2 p-2" 
+          placeholder="Password"
+          type="password"
+        />
+        <button className="mt-4 w-full">
+          Login
+        </button>
+        <div className="flex justify-center pt-3">
+          Don't have an account? &nbsp; 
+          <span className="font-bold text-blue-300"
+            @click="handleSignUpToggle(true)"
+          >
+            Sign Up
+          </span>
+        </div>
+      </div>
+
+      <div v-else className="w-full">
+        <input className="w-[148px] my-2 p-2 mr-2"
+          placeholder="First Name"
+        />
+        <input className="w-[148px] my-2 p-2"
+          placeholder="Last Name"
+        />
+        <input className="w-full my-2 p-2"
+          placeholder="Email"
+          type="email"
+        />
+        <input className="w-full my-2 p-2" 
+          placeholder="Password"
+          type="password"
+        />
+
+        <div className="flex justify-center pt-3">
+          Already have an account? &nbsp;
+          <span className="font-bold text-blue-300"
+            @click="handleSignUpToggle(false)"
+          >
+            Log In
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
