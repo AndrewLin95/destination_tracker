@@ -10,11 +10,15 @@
   },
   "dependencies": {
     "@mapbox/timespace": "^2.0.4",
+    "dotenv": "^16.0.3",
     "uuid": "^9.0.0",
     "vue": "^3.2.47",
-    "vue3-google-map": "^0.15.0"
+    "vue-router": "^4.2.1",
+    "vue3-google-map": "^0.15.0",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
+    "@types/node": "^20.2.3",
     "@types/uuid": "^9.0.1",
     "@vitejs/plugin-vue": "^4.1.0",
     "autoprefixer": "^10.4.14",
