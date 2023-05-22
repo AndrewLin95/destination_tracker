@@ -4,13 +4,23 @@
     data () {
       return {
         signUpToggle: false as boolean,
+
+        loginEmail: "" as string,
+        loginPassword: "" as string,
+        loginValidation: false as boolean,
+
+        signupFirstName: "" as string,
+        signupLastName: "" as string,
+        signupEmail: "" as string,
+        signupPassword: "" as string,
+        signupValidation: false as boolean,
       }
     },
     methods: {
       handleSignUpToggle(boolState: boolean) {
         this.signUpToggle = boolState;
       }
-    }
+    },
   }
 </script>
 
@@ -27,10 +37,12 @@
         <input className="w-full my-2 p-2"
           placeholder="Email"
           type="email"
+          v-model="loginEmail"
         />
         <input className="w-full my-2 p-2" 
           placeholder="Password"
           type="password"
+          v-model="loginPassword"
         />
         <button className="mt-4 w-full">
           Login
@@ -49,23 +61,26 @@
         <div className="flex flex-row justify-around">
           <input className="w-[50%] my-2 p-2 mr-2"
             placeholder="First Name"
+            v-model="signupFirstName"
           />
           <input className="w-[50%] my-2 p-2"
             placeholder="Last Name"
+            v-model="signupLastName"
           />
         </div>
         <input className="w-full my-2 p-2"
           placeholder="Email"
           type="email"
+          v-model="signupEmail"
         />
         <input className="w-full my-2 p-2" 
           placeholder="Password"
           type="password"
+          v-model="signupPassword"
         />
         <button className="mt-2 w-full">
           Sign Up
         </button>
-
         <div className="flex justify-center pt-3">
           Already have an account? &nbsp;
           <span className="font-bold text-blue-300"
