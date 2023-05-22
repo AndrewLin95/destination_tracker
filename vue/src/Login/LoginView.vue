@@ -46,12 +46,14 @@
       </div>
 
       <div v-else className="w-full">
-        <input className="w-[148px] my-2 p-2 mr-2"
-          placeholder="First Name"
-        />
-        <input className="w-[148px] my-2 p-2"
-          placeholder="Last Name"
-        />
+        <div className="flex flex-row justify-around">
+          <input className="w-[50%] my-2 p-2 mr-2"
+            placeholder="First Name"
+          />
+          <input className="w-[50%] my-2 p-2"
+            placeholder="Last Name"
+          />
+        </div>
         <input className="w-full my-2 p-2"
           placeholder="Email"
           type="email"
