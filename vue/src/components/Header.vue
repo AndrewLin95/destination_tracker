@@ -14,7 +14,7 @@
       },
       localTime: {
         type: String as PropType<string>,
-          required: true,
+        required: true,
       }
     },
     methods: {
