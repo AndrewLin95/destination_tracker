@@ -1,4 +1,6 @@
 <script lang="ts">
+  import axios from "axios";
+
   export default {
     name: "LoginView",
     data () {
@@ -19,6 +21,20 @@
     methods: {
       handleSignUpToggle(boolState: boolean) {
         this.signUpToggle = boolState;
+      },
+      async handleLogin() {
+        const loginObject = {
+          username: this.loginEmail,
+          password: this.loginPassword,
+        }
+      
+        try {
+          const response = await axios.post("/api/log-in", loginObject) 
+          console.log(response);
+        } catch (err) {
+          console.log(err);
+        }
+
       }
     },
   }
@@ -32,7 +48,7 @@
       <div className="flex w-full h-auto justify-center my-4">
         <img alt="Destination Tracker Logo" src="../assets/destination.png" className="h-32 w-32 my-12">
       </div>
-
+      <!-- Login -->
       <div v-if="!signUpToggle" className="w-full">
         <input className="w-full my-2 p-2"
           placeholder="Email"
@@ -44,7 +60,9 @@
           type="password"
           v-model="loginPassword"
         />
-        <button className="mt-4 w-full">
+        <button className="mt-4 w-full"
+          @click="handleLogin()"
+        >
           Login
         </button>
         <div className="flex justify-center pt-3">
@@ -56,7 +74,7 @@
           </span>
         </div>
       </div>
-
+      <!-- Signup -->
       <div v-else className="w-full">
         <div className="flex flex-row justify-around">
           <input className="w-[50%] my-2 p-2 mr-2"
