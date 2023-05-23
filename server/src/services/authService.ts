@@ -1,9 +1,9 @@
 import { Request } from "express";
-const AuthSignUpSchema = require("../models/AuthSignUpSchema");
+const AuthUserSchema = require("../models/AuthUserSchema");
 
 const signUpService = async (req: Request) => {
   try {
-    const user = new AuthSignUpSchema({
+    const user = new AuthUserSchema({
       loginEmail: req.body.signupEmail,
       loginPassword: req.body.signupPassword,
       joinDate: new Date(),

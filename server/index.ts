@@ -18,12 +18,12 @@ db.on('error', console.error.bind(console, 'MongoDB connection error'));
 db.once("open", () => console.log("Connected to DB!"));
 
 // PassportJs
-import { AuthLoginSchema } from './src/models/AuthLoginSchema';
+const AuthUserSchema = require("./src/models/AuthUserSchema")
 
 passport.use(
   new LocalStrategy(async(email: string, password: string, done: any) => {
     try {
-      const user = await AuthLoginSchema.findOne({ loginEmail: email });
+      const user = await AuthUserSchema.findOne({ loginEmail: email });
       if (!user) {
         return done(null, false, { message: "Incorrect username" });
       };

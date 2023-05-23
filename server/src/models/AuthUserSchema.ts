@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const authSignUpSchema = new mongoose.Schema({
+const authUserSchema = new mongoose.Schema({
   loginEmail: {
     type: String,
     required: true,
@@ -23,6 +23,6 @@ const authSignUpSchema = new mongoose.Schema({
   },
 }, { versionKey: false })
 
-const AuthSignUpSchema = mongoose.model('AuthSignUpSchema', authSignUpSchema);
+const AuthUserSchema = mongoose.model('AuthUserSchema', authUserSchema);
 
-module.exports = AuthSignUpSchema;
+module.exports = AuthUserSchema;
