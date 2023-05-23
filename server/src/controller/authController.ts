@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 const authService = require('../services/authService');
 
-const getAuth = async (req: Request, res: Response) => {
+export const signUp = async (req: Request, res: Response) => {
   try {
     const response = await authService.authTest();
     console.log(response)
@@ -11,7 +11,3 @@ const getAuth = async (req: Request, res: Response) => {
     res.status(500).send(err);
   }
 }
-
-module.exports = {
-  getAuth,
-} 
