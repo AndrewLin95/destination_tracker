@@ -69,8 +69,12 @@ app.post("/log-in",
   })
 )
 
-app.post("/", (res, req) => {
-  req.status(200).send(JSON.stringify("worked"));
+app.get("/home", (req, res) => {
+  res.status(200).send(JSON.stringify("success"));
+})
+
+app.get("/", (req, res) => {
+  res.status(200).send(JSON.stringify("login-failed"));
 })
 
 app.get("/log-out", (req: Request, res: Response, next) => {
